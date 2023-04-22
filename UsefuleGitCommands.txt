@@ -5,20 +5,33 @@ git --version
 #clone remote repository to local working dir
 git clone [project url]
 
+
 #view your remote repositories
 git remote -v
+#Add Remote Repositories
+git remote add <shortname> <url>:
+#Fetch and Pull from Your Remotes
+git fetch <remote>
+#Push to Your Remotes
+git push <remote> <branch>
+#Inspect a Remote
+git remote show <remote>
+#Remove Remotes
+git remote remove <remote> 
+git remote rm <remote>
+
 
 #get short help
 git <cmd> -h
 
 #create a branch
-git checkout -b <name of branch>
+git checkout -b <branch>
 
 #switch to an exist branch
-git checkout <name of branch>
+git checkout <branch>
 
 #see which specific SHA-1 a branch points to
-git rev-parse <branch name>
+git rev-parse <branch>
 
 #get all changes from remote
 git fetch --all
@@ -79,11 +92,10 @@ git clean -d -n
 
 #pull the changes from remote
 git pull
-git pull <REMOTE> <name-of branch>
+git pull <remote> <branch>
 
 #upload/send the changes to remote
 git push
-git push <REMOTE> <name-of branch>
+git push <remote> <branch>
 e.g.
 git push origin master
-
