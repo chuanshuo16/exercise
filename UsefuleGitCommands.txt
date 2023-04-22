@@ -1,0 +1,89 @@
+#view version
+git version
+git --version
+
+#clone remote repository to local working dir
+git clone [project url]
+
+#view your remote repositories
+git remote -v
+
+#get short help
+git <cmd> -h
+
+#create a branch
+git checkout -b <name of branch>
+
+#switch to an exist branch
+git checkout <name of branch>
+
+#see which specific SHA-1 a branch points to
+git rev-parse <branch name>
+
+#get all changes from remote
+git fetch --all
+
+##view differences
+git diff
+#compare branch
+git diff master feature1   #Changes between the tips of the master and the feature1 branches.
+git diff master..feature1  #same as above
+git diff master¡­feature1   #Changes that occurred on the feature1 branch since when the master branch was started off it.
+#compare a specified file between given branches
+git diff master..feature1 <file-path>
+#limit the diff output
+git diff --name-status master..feature1
+git diff --name-only master..feature1
+
+#Show the working tree status
+git status        #Give the output in the short-format(git status --long). This is the default.
+git status -s    #Give the output in the short-format.
+
+##stage(prepare) local changes
+git add <file-name OR folder-name>
+git add .   #Add all changes to commit
+The . character means all file changes in the current directory and all subdirectories.
+
+##commit(save) the staged files:
+git commit -m "COMMENT TO DESCRIBE THE INTENTION OF THE COMMIT"
+#If you commit too early and possibly forget to add some files, 
+#you want to redo that commit, make the additional changes you forgot, stage them, and commit again using the --amend option
+git add <additional files>
+git commit --amend     
+#in above case, it will reuse the previous commit message, you can use -m <new message> to change commit message
+#change commit message only
+#if you have made no changes since your last commit, you can run this command to change your commit message only.
+git commit --amend -m <new message>
+Note: Only amend commits that are still local and have not been pushed somewhere.
+
+
+#Unstage a Staged File
+git reset HEAD <file>¡­
+git restore --staged <file>¡­
+#Unstage all Staged File
+git reset HEAD .
+git restore --staged .
+#in above case, the modified file(s) in your working directory is(are) not touched, so it¡¯s relatively safe.
+
+
+#Unmodify a Modified File(discard changes)
+git checkout -- <file>¡­
+git restore <file>¡­
+#in above commands are just working for tracked and not staged files, but not working for untracked files
+
+
+#remove all untracked changes
+git clean -fxd
+#check what would be removed before actually removed.
+git clean -d -n
+
+#pull the changes from remote
+git pull
+git pull <REMOTE> <name-of branch>
+
+#upload/send the changes to remote
+git push
+git push <REMOTE> <name-of branch>
+e.g.
+git push origin master
+
