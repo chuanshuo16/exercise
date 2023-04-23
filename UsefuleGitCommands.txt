@@ -24,11 +24,15 @@ git remote rm <remote>
 #get short help
 git <cmd> -h
 
-#create a branch
-git checkout -b <branch>
-
+#create a branch and switch to the new branch
+git checkout -b <new branch>
+git switch -c <new branch>   #from git version 2.23 onwards
 #switch to an exist branch
 git checkout <branch>
+git switch <branch>  #from git version 2.23 onwards
+#switch back to your previously checked out branch
+git switch -
+
 
 #see which specific SHA-1 a branch points to
 git rev-parse <branch>
@@ -62,7 +66,7 @@ git commit -m "COMMENT TO DESCRIBE THE INTENTION OF THE COMMIT"
 #If you commit too early and possibly forget to add some files, 
 #you want to redo that commit, make the additional changes you forgot, stage them, and commit again using the --amend option
 git add <additional files>
-git commit --amend     
+git commit --amend  --no-edit
 #in above case, it will reuse the previous commit message, you can use -m <new message> to change commit message
 #change commit message only
 #if you have made no changes since your last commit, you can run this command to change your commit message only.
@@ -99,3 +103,11 @@ git push
 git push <remote> <branch>
 e.g.
 git push origin master
+
+#list your tag
+git tag
+git tag -l <pattern>
+
+#View commit history
+git log
+git log --online --graph --all
