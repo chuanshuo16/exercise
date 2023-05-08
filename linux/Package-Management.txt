@@ -1,0 +1,128 @@
+	? yum
+		¡ð yum install
+		¡ð yum search
+		¡ð yum remove
+		¡ð yum groups list
+		¡ð yum groups install
+
+
+	What is yum?
+	yum is the primary tool for getting, installing, deleting, querying, and managing Red Hat Enterprise Linux RPM software packages from official Red Hat software repositories, as well as other third-party repositories. yum is used in Red Hat Enterprise Linux versions 5 and later. Versions of Red Hat Enterprise Linux 4 and earlier used up2date.
+	How do I use yum?
+	The Yum Command Cheat Sheet for Red Hat Enterprise Linux contains a reference card outlining the common use cases for the yum command. There is a PDF version available for download at the bottom of that page.
+	
+	À´×Ô <https://access.redhat.com/solutions/9934> 
+	
+	https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/system_administrators_guide/ch-yum
+
+	? yumdownloader
+	download RPM packages from yum repositories
+
+
+	? RPM
+		¡ð rpm -e <name>
+		¡ð rpm -ivh <rpm-filename>
+
+	The rpm command should not be used anymore for package installation
+	It is still useful to work with the RPM database and allows you to do package queries
+		¡ð rpm -qf /my/file will tell you which package a file is from
+		¡ð rpm -ql mypackage queries the database to list package contents
+	
+	to query the package file instead of the package contents, add a p to the options
+		¡ð rpm -qpc mypackage.rpm  lists configuration files in a downloaded package file
+		¡ð rpm -qp --scripts mypackage.rpm  shows scrips that may be present in a package
+	
+	
+	
+	? dnf
+	a new utility used in Fedora to replace yum
+
+
+	? apt
+	apt is yum equivalent on Ubuntu
+	
+	
+	l Major Packaging System Families
+	Packaging system	Distributions (partial listing)
+	Debian-style (.deb)	Debian, Ubuntu, Linux Mint, Raspbian
+	Red Hat¨Cstyle (.rpm)	Fedora, CentOS, Red Hat Enterprise Linux, OpenSUSE
+	
+	High- and Low-Level Package Tools
+	Package management systems usually consist of two types of tools.
+	? Low-level tools that handle tasks such as installing and removing package files
+	? High-level tools that perform metadata searching and dependency resolution
+
+	Packaging System Tools
+	Distributions	Low-level tools	High-level tools
+	Debian-style	dpkg	apt-get, apt, aptitude
+	Fedora, Red Hat Enterprise Linux, CentOS	rpm	yum, dnf
+	
+	? Common Package Management Tasks
+	the term package_name refers to the actual name of a package rather than the term package_file, which is the name of the file that contains the package.
+	
+	Finding a Package in a Repository
+	Package Search Commands
+	Style	Command(s)
+	Debian	apt-get update
+		apt-cache search search_string
+	Red Hat	yum search search_string
+
+	Installing a Package from a Repository
+	Package Installation Commands
+	Style	Command(s)
+	Debian	apt-get update
+		apt-get install package_name
+	Red Hat	yum install package_name
+
+	Installing a Package from a Package File
+	Low-Level Package Installation Commands
+	Style	Command(s)
+	Debian	dpkg -i package_file
+	Red Hat	rpm -i package_file
+
+	Removing a Package
+	Package Removal Commands
+	Style	Command(s)
+	Debian	apt-get remove package_name
+	Red Hat	yum erase package_name
+
+	Updating Packages from a Repository
+	Package Update Commands
+	Style	Command(s)
+	Debian	apt-get update; apt-get upgrade
+	Red Hat	yum update
+
+	Upgrading a Package from a Package File
+	Low-Level Package Upgrade Commands
+	Style	Command(s)
+	Debian	dpkg -i package_file
+	Red Hat	rpm -U package_file
+
+	Note: dpkg does not have a specific option for upgrading a package versus installing one as rpm does.
+
+	Listing Installed Packages
+	Package Listing Commands
+	Style	Command(s)
+	Debian	dpkg -l
+	Red Hat	rpm -qa
+
+	Determining Whether a Package Is Installed
+	Package Status Commands
+	Style	Command(s)
+	Debian	dpkg -s package_name
+	Red Hat	rpm -q package_name
+
+	Displaying Information About an Installed Package
+	Package Information Commands
+	Style	Command(s)
+	Debian	apt-cache show package_name
+	Red Hat	yum info package_name
+
+	Finding Which Package Installed a File
+	Package File Identification Commands
+	Style	Command(s)
+	Debian	dpkg -S file_name
+	Red Hat	rpm -qf file_name
+	e.g.
+	To see what package installed the /usr/bin/vim file on a Red Hat system, we can use the following:
+	rpm -qf /usr/bin/vim

@@ -1,0 +1,127 @@
+The test command performs a variety of checks and comparisons. It has two equivalent forms. The first, shown here:
+test expression
+And the second, more popular form, here:
+[ expression ]
+
+where expression is an expression that is evaluated as either true or false. The test command returns an exit status of 0 when the expression is true and a status of 1 when the expression is false.
+It is interesting to note that both test and [ are actually commands. In bash they are builtins, but they also exist as programs in /usr/bin for use with other shells. The expression is actually just its arguments with the [ command requiring that the ] character be provided as its final argument.
+The test and [ commands support a wide range of useful expressions and tests.
+
+? test File Expressions
+Expression	Is true if:
+file1 -ef file2	file1 and file2 have the same inode numbers (the two filenames refer to the same file by hard linking).
+file1 -nt file2	file1 is newer than file2.
+file1 -ot file2	file1 is older than file2.
+-b file	file exists and is a block-special (device) file.
+-c file	file exists and is a character-special (device) file.
+-d file	file exists and is a directory.
+-e file	file exists.
+-f file	file exists and is a regular file.
+-g file	file exists and is set-group-ID.
+-G file	file exists and is owned by the effective group ID.
+-k file	file exists and has its ¡°sticky bit¡± set.
+-L file	file exists and is a symbolic link.
+-O file	file exists and is owned by the effective user ID.
+-p file	file exists and is a named pipe.
+-r file	file exists and is readable (has readable permission for the effective user).
+-s file	file exists and has a length greater than zero.
+-S file	file exists and is a network socket.
+-t fd	fd is a file descriptor directed to/from the terminal. This can be used to determine whether standard input/output/error is being redirected.
+-u file	file exists and is setuid.
+-w file	file exists and is writable (has write permission for the effective user).
+-x file	file exists and is executable (has execute/search permission for the effective user).
+
+? test String Expressions
+Expression	Is true if:
+string	string is not null.
+-n string	The length of string is greater than zero.
+-z string	The length of string is zero.
+string1 = string2	string1 and string2 are equal. Single or double equal signs may be used. The use of double equal signs is greatly preferred, but it is not POSIX compliant.
+string1 == string2
+string1 != string2	string1 and string2 are not equal.
+string1 > string2	string1 sorts after string2.
+string1 < string2	string1 sorts before string2.
+
+? test Integer Expressions
+Expression	Is true if:
+integer1 -eq integer2	integer1 is equal to integer2.
+integer1 -ne integer2	integer1 is not equal to integer2.
+integer1 -le integer2	integer1 is less than or equal to integer2.
+integer1 -lt integer2	integer1 is less than integer2.
+integer1 -ge integer2	integer1 is greater than or equal to integer2.
+integer1 -gt integer2	integer1 is greater than integer2.
+
+
+[[ ]] A More Modern Version of test
+Modern versions of bash include a compound command that acts as an enhanced replacement for test. It uses the following syntax:
+[[ expression ]]
+where, like test, expression is an expression that evaluates to either a true or false result. The [[ ]] command is similar to test (it supports all of its expressions) but adds an important new string expression.
+string1 =~ regex
+
+Another added feature of [[ ]] is that the == operator supports pattern matching the same way pathname expansion does. 
+e.g.
+$FILE=foo.bar
+$ if [[ $FILE == foo.* ]]; then
+> echo "$FILE matches pattern 'foo.*'"
+> fi
+
+This makes [[ ]] useful for evaluating file and pathnames.
+
+(( ))¡ªDesigned for Integers
+In addition to the [[ ]] compound command, bash also provides the (( )) compound command, which is useful for operating on integers. It supports a full set of arithmetic evaluations.
+(( )) is used to perform arithmetic truth tests. An arithmetic truth test results in true if the result of the arithmetic evaluation is non-zero.
+e.g.
+INT=-5
+if [[ "$INT" =~ ^-?[0-9]+$ ]]; then
+      if ((INT == 0)); then
+            echo "INT is zero."
+      else
+            if ((INT < 0)); then
+                  echo "INT is negative."
+            else
+                  echo "INT is positive."
+            fi
+            if (( ((INT % 2)) == 0)); then
+                  echo "INT is even."
+            else
+                  echo "INT is odd."
+            fi
+      fi
+else
+      echo "INT is not an integer." >&2
+      exit 1
+fi
+
+
+Combining Expressions
+It¡¯s also possible to combine expressions to create more complex evaluations. Expressions are combined by using logical operators. There are three logical operations for test and [[ ]]. They are AND, OR, and NOT. test and [[ ]] use different operators to represent these operations, as shown in below table
+Logical Operators
+Operation	test	[[ ]] and (( ))
+AND	-a	&&
+OR	-o	||
+NOT	!	!
+
+e.g.
+ if [[ "$INT" -ge "$MIN_VAL" && "$INT" -le "$MAX_VAL" ]]; then
+     echo "$INT is within $MIN_VAL to $MAX_VAL."
+ else
+     echo "$INT is out of range."
+ fi
+
+or
+ if [ "$INT" -ge "$MIN_VAL" -a "$INT" -le "$MAX_VAL" ]; then
+      echo "$INT is within $MIN_VAL to $MAX_VAL."
+else
+      echo "$INT is out of range."
+fi
+
+or
+     if [ ! \( "$INT" -ge "$MIN_VAL" -a "$INT" -le "$MAX_VAL" \) ]; then
+            echo "$INT is outside $MIN_VAL to $MAX_VAL."
+      else
+            echo "$INT is in range."
+      fi
+
+Since all expressions and operators used by test are treated as command arguments by the shell (unlike [[ ]] and (( )) ), characters that have special meaning to bash, such as <, >, (, and ), must be quoted or escaped.
+
+Seeing that test and [[ ]] do roughly the same thing, which is preferable? test is traditional (and part of the POSIX specification for standard shells, which are often used for system startup scripts), whereas [[ ]] is specific to bash (and a few other modern shells). It¡¯s important to know how to use test since it is widely used, but [[ ]] is clearly more useful and is easier to code, so it is preferred for modern scripts.

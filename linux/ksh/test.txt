@@ -1,0 +1,44 @@
+These are the operators that are used with the [[...]] construct. They can be logically combined with && ("and") and || ("or") and grouped with parenthesis. When used with filenames of the form /dev/fd/N, they test the corresponding attribute of open file descriptor N. docstore.mik.ua/orelly/unix3/korn/appb_05.htm
+
+Operator 	True if... 
+-a file 	file exists. (Obsolete. -e is preferred.) 
+-b file 	file is a block device file. 
+-c file 	file is a character device file. 
+-C file 	file is a contiguous file. (Not for most Unix versions.) 
+-d file 	file is a directory. 
+-e file 	file exists. 
+-f file 	file is a regular file. 
+-g file 	file has its setgid bit set. 
+-G file f	ile's group ID is the same as the effective group ID of the shell. 
+-h file 	file is a symbolic link. 
+-k file 	file has its sticky bit set. 
+-l file 	file is a symbolic link. (Only works on systems where /bin/test -l tests for symbolic links.) 
+-L file 	file is a symbolic link. 
+-n string 	string is non-null. 
+-o option 	option is set. 
+-O file 	file is owned by the shell's effective user ID. 
+-p file 	file is a pipe or named pipe (FIFO file). 
+-r file 	file is readable. 
+-s file 	file is not empty. 
+-S file 	file is a socket. 
+-t N 	File descriptor N points to a terminal. 
+-u file 	file has its setuid bit set. 
+-w file 	file is writable. 
+-x file 	file is executable, or file is a directory that can be searched. 
+-z string 	string is null. 
+fileA -nt fileB 	fileA is newer than fileB, or fileB does not exist. 
+fileA -ot fileB 	fileA is older than fileB, or fileB does not exist. 
+fileA -ef fileB 	fileA and fileB point to the same file. 
+string = pattern 	string matches pattern (which can contain wildcards). Obsolete; == is preferred. 
+string == pattern 	string matches pattern (which can contain wildcards). 
+string != pattern 	string does not match pattern. 
+stringA < stringB 	stringA comes before stringB in dictionary order. 
+stringA > stringB 	stringA comes after stringB in dictionary order. 
+exprA -eq exprB 	Arithmetic expressions exprA and exprB are equal. 
+exprA -ne exprB 	Arithmetic expressions exprA and exprB are not equal. 
+exprA -lt exprB 	exprA is less than exprB. 
+exprA -gt exprB 	exprA is greater than exprB. 
+exprA -le exprB 	exprA is less than or equal to exprB. 
+exprA -ge exprB 	exprA is greater than or equal to exprB. 
+
+The operators -eq, -ne, -lt, -le, -gt, and -ge are considered obsolete in ksh93; the let command or ((...)) should be used instead. For =, ==, and !=, quote pattern to do literal string comparisons. docstore.mik.ua/orelly/unix3/korn/appb_05.htm

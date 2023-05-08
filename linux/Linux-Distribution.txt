@@ -1,0 +1,19 @@
+1, Red Hat - one big and important linux distribution, using RPM package
+Red Hat family:
+	? RHEL =Red Hat Enterprise Linux
+	? CentOS =Community Enterprise Operating System, is completely available for free.
+	? Fedora: is a development platform
+Fedora -> RHEL  -> CentOS 
+
+What is CentOS Linux?
+CentOS Linux is a community-supported distribution derived from sources freely provided to the public on Red Hat or CentOS git for Red Hat Enterprise Linux (RHEL). As such, CentOS Linux aims to be functionally compatible with RHEL. The CentOS Project mainly changes packages to remove upstream vendor branding and artwork. CentOS Linux is no-cost and free to redistribute.
+
+2, Ubuntu - based on Debian, using DEB package
+(Debian is like the old version of Ubuntu)
+	? Linux Mint - based on Ubuntu
+
+3, SUSE
+
+4, Oracle Enterprise Linux
+
+
