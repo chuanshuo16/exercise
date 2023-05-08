@@ -27,11 +27,22 @@ git <cmd> -h
 #create a branch and switch to the new branch
 git checkout -b <new branch>
 git switch -c <new branch>   #from git version 2.23 onwards
+#set up a local branch with a different name than the remote branch
+git checkout -b <local branch> origin/<remote branch>
 #switch to an exist branch
 git checkout <branch>
 git switch <branch>  #from git version 2.23 onwards
 #switch back to your previously checked out branch
 git switch -
+#list local branch 
+git branch
+git branch -l
+#list remote branch
+git branch -r
+#list both remote-tracking and local branches
+git branch -a
+#see what tracking branches you have set up
+git branch -vv
 
 
 #see which specific SHA-1 a branch points to
@@ -40,8 +51,19 @@ git rev-parse <branch>
 #get all changes from remote
 git fetch --all
 
-##view differences
+##view non-staged(non-added) changes to tracked files. Note: this does not track new files
 git diff
+#view staged but non-committed changes
+git diff --cached
+#view what files you already committed but not pushed to remote repository yet
+git diff --name-status <remote>/<remote branch> <local branch>
+git diff --name-status @{upstream}
+#view what files you already committed in the last commit
+git diff --name-status HEAD~
+git log --name-status -p -1
+git log --name-status -1
+git show --name-status -1
+
 #compare branch
 git diff master feature1   #Changes between the tips of the master and the feature1 branches.
 git diff master..feature1  #same as above
@@ -59,6 +81,7 @@ git status -s    #Give the output in the short-format.
 ##stage(prepare) local changes
 git add <file-name OR folder-name>
 git add .   #Add all changes to commit
+git add *
 The . character means all file changes in the current directory and all subdirectories.
 
 ##commit(save) the staged files:
@@ -111,3 +134,4 @@ git tag -l <pattern>
 #View commit history
 git log
 git log --online --graph --all
+
