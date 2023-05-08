@@ -1,0 +1,5 @@
+Ansible Documentation ¡ª Ansible Documentation
+
+Tips and tricks
+https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html
+

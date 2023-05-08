@@ -1,0 +1,1 @@
+PuTTY is a free Windows Telnet and SSH client. Its companion utilities PSCP, PSFTP, Plink, Pageant and PuTTYgen.

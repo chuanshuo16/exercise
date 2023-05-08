@@ -1,0 +1,100 @@
+PSFTP, the PuTTY SFTP client, is a tool for transferring files securely between computers using an SSH connection.
+
+The usual way to start PSFTP is from a command prompt, much like PSCP.
+set PATH=c:\path\to\putty\directory;%PATH%
+psftp server.example.com
+or
+psftp fred@server.example.com
+
+Alternatively, you can just type psftp or double-click the PSFTP icon, your will see the PSFTP prompt.
+C:\psftp
+psftp: no hostname specified: use "open host.name" to connect
+psftp>
+
+
+Help
+!         run a local command
+bye   finish your SFTP session(close the connection) and terminate PSFTP. quit and exit have exactly the same effect.
+cd     change your remote working directory
+chmod  change file permission and modes
+close  finish your SFTP session but do not quit PSFTP. You can then use the open command to open a new connection.
+del    delete files on the remote server
+dir     list remote files. The ls command works exactly the same way as dir.
+exit   finish your SFTP session(close the connection) and terminate PSFTP. bye and quit have exactly the same effect.
+get    download a file from the server to your local machine.
+help  give help
+lcd    change local working directory
+lpwd  print local working directory
+ls      list remote files. The ls command works exactly the same way as dir.
+mget  download multiple files at once
+mkdir  create directories on the remote server
+mput  upload multiple files at once
+mv      move or rename file(s) on the remote server. The ren command works exactly the same way as mv.
+open  connect to a host
+put     upload a file from your local machine to the server
+pwd   print your remote working directory
+quit    finish your SFTP session(close the connection) and terminate PSFTP. bye and exit have exactly the same effect.
+reget  continue downloading files
+ren     move or rename file(s) on the remote server. The ren command works exactly the same way as mv.
+reput  continue uploading files
+rm      delete files on the remote server
+rmdir  remove directories on the remote server
+
+
+Example:
+#login the remote server
+open <host name>
+
+#print your remote working directory
+pwd
+#list remote files
+ls
+or 
+dir
+#change your remote working directory
+cd <new dir>
+
+#print local working directory
+lpwd
+#list local files
+!ls
+or 
+!dir
+#change local workign directory
+lcd
+
+#To upload a file to server from your local PC. 
+#In its simplest form, you just use this with a file name:
+put myfiles.dat
+#if you want to store the file remotely under a different name, specify the remote file name after the local one:
+put myfile.dat newname.dat
+#To send an entire directory recursively, you can user the -r option:
+put -r mydir
+put -r mydir newname
+
+#To download a file from the server and store it on your local PC. 
+#In its simplest form, you just use this with a file name:
+get myfiles.dat
+#if you want to store the file locally under a different name, specify the local file name after the remote one:
+get myfile.dat newname.dat
+#To download an entire directory recursively, you can user the -r option:
+get -r mydir
+get -r mydir newname
+
+#To upload multiple files to server from your local PC. 
+#storing each one under the same name it has on the remote server. you can use wildcards such as "*.c"
+mput file1.txt file2 txt file3.txt
+mput *.txt
+
+#To download multiple files from server and store them on your local PC. 
+#storing each one under the same name it has on the local server. you can use wildcards such as "*.c"
+mget file1.txt file2 txt file3.txt
+mget *.txt
+
+
+#Finish your SFTP session
+bye
+or
+exit
+or
+quit

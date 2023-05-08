@@ -1,0 +1,38 @@
+PSCP, the PuTTY secure Copy client, is a tool transferring files securely between computes using an SSH connection.
+
+PSCP is a command line application. This means that you cannot just double-click on its own icon to run it and instead you have to bring up a console window.
+To start PSCP it will need either to be on your PATH or in your current directory.
+set PATH=c:\path\to\putty\directory;%PATH%
+
+The basics
+To receive (a) file(s) from a remote server
+pscp [option] [userid@]host:source target
+
+So to copy the files /etc/hosts from the server example.com as user fred to the file c:\temp\example-hosts.txt., you would type:
+pscp fred@example.com:/etc/hosts c:\temp\example-hosts.txt
+
+To send (a) file(s) to a remote server
+pscp [option] source [source¡­] [userid@]host:target
+
+So to copy the local file c:\documents\foo.txt to the server example.com as user fred to the file /tmp/foo, you would type:
+pscp c:\documents\foo.txt fred@example.com:/tmp/foo
+
+You can use wildcards to transfer multiple files in either direction, like this:
+pscp c:\documents\*doc fred@example.com:docfiles
+pscp fred@example.com:source/*.c c:\source
+
+¡­
+
+Options
+-ls   list remote files
+-p   preserve file attributes
+-q   quiet, don't show statistics
+-r    copies directories recursively
+-batch  avoid interactive prompts
+-sftp, -scp force use of particular protocol
+-no-sanitise-stderr  control error message sanitisation
+
+Return value
+PSCP returns an ERRORLEVEL of zero (success) only if the files were correctly transferred. You can test for this in a batch file, using code such as this:
+pscp file*.* user@hostname:
+if errorlevel 1 echo There was an error
